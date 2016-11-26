@@ -1,0 +1,19 @@
+Atom One Dark Colors in Hex
+
+config      - #282C34 - dark gray
+dark config - #20242C - approximate
+
+mono 1      - #ABB2BF - ligher gray
+mono 2      - #828997 - mid gray
+mono 3      - #5C6370 - darker gray
+
+cyan        - #56B6C2
+blue        - #61AFEF
+purple      - #C678DD
+green       - #98C379
+
+red 1       - #E06C75
+red 2       - #BE5046
+
+orange 1    - #D19A66
+orange 2    - #E5C07B

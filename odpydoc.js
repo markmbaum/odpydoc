@@ -1,12 +1,21 @@
+
 function arrange(){
     var nav_wrapper = document.getElementById('nav-wrapper');
     var nav = document.getElementById('nav');
     var main = document.getElementById('main');
+    var body = document.body;
 
     var w_nav = nav.offsetWidth + 1;
-    var w = w_nav.toString() + 'px';
-    main.setAttribute('style', 'margin-left: ' + w);
-    main.style.marginLeft = w;
+    var m = w_nav.toString() + 'px';
+    var w = (body.offsetWidth - w_nav).toString() + 'px';
+
+    main.setAttribute('style', 'margin-left: ' + m);
+    main.style.marginLeft = m;
+
+    main.setAttribute('style', 'width: ' + w);
+    main.style.width = w;
+
+    console.log('arrange')
 
 };
 

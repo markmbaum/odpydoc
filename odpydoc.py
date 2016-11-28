@@ -1,13 +1,15 @@
+"""This is a module for creating HTML documentation of other Python packages/modules. The doc_module function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme."""
+
 import inspect
 import textwrap
-from pygments import highlight
-from pygments.lexers import PythonLexer
-from pygments.formatters import HtmlFormatter
+from pygments import highlight as _highlight
+from pygments.lexers import PythonLexer as _PythonLexer
+from pygments.formatters import HtmlFormatter as _HtmlFormatter
 
-python_lexer = PythonLexer()
-html_formatter = HtmlFormatter()
+_python_lexer = _PythonLexer()
+_html_formatter = _HtmlFormatter()
 
-def is_number(s):
+def _is_number(s):
     """Check if an element can be converted to a float, returning `True`
     if it can and `False` if it can't"""
     if((s is False) or (s is True)):
@@ -20,14 +22,29 @@ def is_number(s):
         else:
             return(True)
 
-def get_public_vars(obj):
+def _get_public_vars(obj):
+    """Call the builtin vars function on an object to retrieve its __dict__ and remove all keys starting with an underscore
+    args:
+        obj - the object to retrieve public variables from"""
     v = vars(obj)
     v = dict(zip([k for k in v if (k[0] != '_')],
                 [v[k] for k in v if (k[0] != '_')]))
     return(v)
 
-def nav_html(mod_name, submodules, functions, classes, others):
-    """generate an unordered list of links for the navigation menu or index"""
+def _nav_html(mod_name, submodules, functions, classes, others):
+    """Generate an unordered list of links for the navigation menu/index of the documentation
+    args:
+        mod_name - str, the name of the module being documented
+        submodules - dict, a dictionary of submodules in the module being
+                     documented
+        functions - dict, a dictionary of function objects in the module
+                    being documented
+        classes - dict, a dictionary of class objects in the module
+                  being documented
+        others - dict, a dictionary of other objects in the module
+                 being documented, like globally used floats or strings
+    returns:
+        html - an HTML string representing the navigation bar"""
     #wrap in a single dict for iteration
     keys = ['submodules', 'functions', 'classes', 'others']
     d = dict(zip(keys, [submodules, functions, classes, others]))
@@ -42,7 +59,7 @@ def nav_html(mod_name, submodules, functions, classes, others):
                 <ul class="subnav-ul">""" % (k, k)
             for m in sorted(d[k].keys()):
                 if(k == 'submodules'):
-                    href = '%s.%s.html' % (mod_name, m)
+                    href = '%s.html' % m
                 else:
                     href = '#%s' % m
                 if(k == 'classes'):
@@ -84,8 +101,12 @@ def nav_html(mod_name, submodules, functions, classes, others):
     html += '</ul></div></div>'
     return(html)
 
-def get_docstr(obj):
-    """Pull and format the docstring of an object for html"""
+def _get_docstr(obj):
+    """Pull the docstring of an object and format it for HTML
+    args:
+        obj - target object
+    returns:
+        docstr - an HTML string or an empty string"""
     tab = '&ensp;'*4
     docstr = obj.__doc__
     if(docstr):
@@ -96,8 +117,12 @@ def get_docstr(obj):
     else:
         return('')
 
-def get_source(obj):
-    """Pull the source string of an object and format for html"""
+def _get_source(obj):
+    """Pull the source string of an object and format it for HTML
+    args:
+        obj - target object
+    returns:
+        sourcestr - an HTML string"""
     #get source as a list of lines
     try:
         lines = inspect.getsourcelines(obj)[0]
@@ -114,7 +139,7 @@ def get_source(obj):
                 lines[i] += '\n'
         #return the source in a <pre>
         source = ''.join(lines).replace('\t', '    ')
-        source = highlight(source, python_lexer, html_formatter)
+        source = _highlight(source, _python_lexer, _html_formatter)
         source = """
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
@@ -124,10 +149,15 @@ def get_source(obj):
                 </div>""" % source
         return(source)
 
-function_arg = lambda s: '<span class="function-arg">' + str(s) + '</span>'
-default_str = lambda s: """<span class="default-str">'""" + str(s) + "'</span>"
+_function_arg = lambda s: '<span class="function-arg">' + str(s) + '</span>'
+_default_str = lambda s: """<span class="default-str">'""" + str(s) + "'</span>"
 
-def get_argstr(function):
+def _get_argstr(function):
+    """Get the argument string for a function, with appropriate highlighting
+    args:
+        function - a function object
+    returns:
+        html - an HTML string"""
     #get the argspec named tuple
     argspec = list(inspect.getargspec(function))
     #remove 'self'
@@ -135,21 +165,21 @@ def get_argstr(function):
         argspec[0].pop(argspec[0].index('self'))
     #apply spans for syntax coloring
     for i in range(len(argspec[0])):
-        argspec[0][i] = function_arg(argspec[0][i])
+        argspec[0][i] = _function_arg(argspec[0][i])
     if(argspec[1]):
-        argspec[1] = function_arg(argspec[1])
+        argspec[1] = _function_arg(argspec[1])
     if(argspec[2]):
-        argspec[2] = function_arg(argspec[2])
+        argspec[2] = _function_arg(argspec[2])
     if(argspec[3]):
         argspec[3] = list(argspec[3])
         for i in range(len(argspec[3])):
             arg = argspec[3][i]
             if("'" in repr(arg)):
-                argspec[3][i] = default_str(arg)
-            elif(is_number(arg)):
-                argspec[3][i] = function_arg(arg)
+                argspec[3][i] = _default_str(arg)
+            elif(_is_number(arg)):
+                argspec[3][i] = _function_arg(arg)
             elif((arg is True) or (arg is False) or (arg is None)):
-                argspec[3][i] = function_arg(arg)
+                argspec[3][i] = _function_arg(arg)
 
     #join default arg names with their values
     if(argspec[3] is not None):
@@ -170,54 +200,78 @@ def get_argstr(function):
     argstr += ')'
     return(argstr)
 
-def function_to_html(F, name):
-    """Create an html div for a function"""
-    #open a div
-    html = '<div class="function" id="%s">' % name
-    #add the function name and argstr
-    html += '<p class="function-str"><span class="function-name">%s</span>%s</p>' % (name, get_argstr(F))
-    #add the docstr
-    html += get_docstr(F)
-    #get the source
-    source = get_source(F)
-    if(source):
-        html += source
-    #close the div
-    html += '</div>'
-    return(html)
+def _function_to_html(F, name):
+    """Create an HTML string for a function object
+    args:
+        F - target function object
+        name - str, the name of the function
+    returns:
+        html - an HTML string for the function"""
+    try:
+        #open a div
+        html = '<div class="function" id="%s">' % name
+        #add the function name and argstr
+        html += '<p class="function-str"><span class="function-name">%s</span>%s</p>' % (name, _get_argstr(F))
+        #add the docstr
+        html += _get_docstr(F)
+        #get the source
+        source = _get_source(F)
+        if(source):
+            html += source
+        #close the div
+        html += '</div>'
+        return(html)
+    except(TypeError):
+        return('')
 
-def functions_to_html(functions):
-    """Creat an html div for a group of functions, alphabetically"""
+def _functions_to_html(functions):
+    """Create an HTML string for a dictionary of functions, alphabetically
+    args:
+        functions - dict containing the functions, indexed by their names
+    return:
+        html - an HTML string"""
     #start the html
     html = ''
     if(functions):
         html += '<div class="section" id="functions"><h2>functions</h2>'
         for k in sorted(functions.keys()):
-            html += function_to_html(functions[k], k)
+            html += _function_to_html(functions[k], k)
         html += '</div>'
     return(html)
 
-def property_to_html(P, name, classname):
+def _property_to_html(P, name, classname):
+    """Get an HTML string for a property object
+    args:
+        P - target property object
+        name - str, the name of the property
+        classname - str, the name of the class where the property is defined
+    returns:
+        html - an HTML string"""
     html = '<div class="property" id="%s-%s">' % (classname, name)
     html += '<p class="property-name">%s</p>' % name
-    html += get_docstr(P) + '</div>'
+    html += _get_docstr(P) + '</div>'
     return(html)
 
-def class_to_html(C, name):
-    """Create an html string for a class/type object"""
+def _class_to_html(C, name):
+    """Create an html string for a class/type object
+    args:
+        C - class object
+        name - str, the class object's name
+    returns:
+        html - an HTML string"""
     #get it's variables, properties, and methods
-    v = get_public_vars(C)
+    v = _get_public_vars(C)
     #open a div for this individual class
     html = '<div class="class" id="%s">' % name
     #add the class name
     html += '<h3>%s</h3>' % name
     #add the class docstr
     if(C.__doc__):
-        html += get_docstr(C)
+        html += _get_docstr(C)
     #add the class-constructor
     if('__init__' in vars(C)):
         init = vars(C)['__init__']
-        html += function_to_html(init, name).replace('id="%s"' % name, '')
+        html += _function_to_html(init, name).replace('id="%s"' % name, '')
     #allocate separate strings for properties, methods
     properties, methods = '', ''
     for k in sorted(v.keys()):
@@ -225,12 +279,12 @@ def class_to_html(C, name):
         if(inspect.isdatadescriptor(v[k])):
             if(properties == ''):
                 properties += '<div class="properties" id="%s-properties"><h4>Properties</h4>' % name
-            properties += property_to_html(v[k], k, name)
+            properties += _property_to_html(v[k], k, name)
         #check if method
         if(inspect.ismethod(v[k]) or (inspect.isfunction(v[k]))):
             if(methods == ''):
                 methods += '<div class="methods" id="%s-methods"><h4>Methods</h4>' % name
-            methods += function_to_html(v[k], k).replace(
+            methods += _function_to_html(v[k], k).replace(
                     'id="%s"' % k, 'id=%s-%s' % (name, k))
     if(properties != ''):
         properties += '</div>'
@@ -241,10 +295,12 @@ def class_to_html(C, name):
     html += '</div>'
     return(html)
 
-def classes_to_html(classes):
+def _classes_to_html(classes):
     """Convert a dictionary of class/type objects into html documentation strings
     args:
-        classes - dict mapping class/type names to class/type objects"""
+        classes - dict mapping class/type names to class/type objects
+    returns:
+        html - an HTML string"""
     #start html string
     html = ''
     #proceed alphabetically
@@ -252,11 +308,16 @@ def classes_to_html(classes):
         #section div for all classes
         html = '<div class="section" id="classes"><h2>classes</h2>'
         for k in sorted(classes.keys()):
-            html += class_to_html(classes[k], k)
+            html += _class_to_html(classes[k], k)
         html += '</div>'
     return(html)
 
-def others_to_html(others):
+def _others_to_html(others):
+    """Create an html string for a dictionary of objects like floats or strings
+    args:
+        others - dict mapping object names to objects
+    returns:
+        html - an HTML string"""
 
     tab = '&ensp;'*4
 
@@ -275,7 +336,7 @@ def others_to_html(others):
                 <div class="other" id="%s">
                     <span class="other-name">%s</span><br>
                     %s<span class="other-type">type:</span>%s<br>
-                    %s<span class="other-value">value:</span>%s
+                    %s<span class="other-value">value:</span><pre>%s</pre>
                     %s
                 </div>""" % (
                     k,
@@ -283,23 +344,15 @@ def others_to_html(others):
                     tab, t,
                     tab, repr(others[k]),
                     comments)
+        html += '</div>'
         return(html)
     else:
         return('')
 
-def doc_module(mod, **kw):
-    '''document a module by providing its name in the form of a string or a module object
+def doc(mod, **kw):
+    """This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.
     args:
-        mod - str, module name or module object
-    kw:
-        all_submods - bool, determines whether submodules that are not in
-                    the module's __all__ list are recursively documented,
-                    default is False'''
-
-    if('all_submods' in kw):
-        all_submods = kw['all_submods']
-    else:
-        all_submods = False
+        mod - str, module name or module object"""
 
     #import the module if a string is passed in
     if(type(mod) is str):
@@ -313,22 +366,25 @@ def doc_module(mod, **kw):
     mod_name = mod.__name__
 
     #get the module's dictionary/namespace/whatever
-    v = vars(mod)
+    try:
+        v = vars(mod)
+    except(TypeError):
+        return(None)
     #check for submods in __all__
     if('__all__' in v):
         submods_in_all = v['__all__']
         for submod_name in submods_in_all:
-            doc_module(v['%s' % submod_name])
+            doc(v[submod_name])
     else:
         submods_in_all = []
     #remove private keys
-    v = get_public_vars(mod)
+    v = _get_public_vars(mod)
     #separate the objects in v based on their types
     submodules, functions, classes, others = dict(), dict(), dict(), dict()
     for k in v:
         t = type(v[k])
         if(inspect.ismodule(v[k])):
-            if(all_submods or (k in submods_in_all)):
+            if(k in submods_in_all):
                 submodules[k] = v[k]
         elif(inspect.isfunction(v[k])):
             functions[k] = v[k]
@@ -339,19 +395,19 @@ def doc_module(mod, **kw):
 
     #GENERATE HTML
     #get the module docstring, if any
-    mod_docstring = get_docstr(mod)
+    mod_docstring = _get_docstr(mod)
     if(mod_docstring):
         mod_docstring = ('<div class="section">%s</div>' %
                 mod_docstring.replace('class="docstr"', 'id="mod-docstr"'))
+
     #get js script
-    with open('doc.js', 'r') as ifile:
+    with open('odpydoc.js', 'r') as ifile:
         js = ifile.read()
     #get css styling
-    with open('doc.css', 'r') as ifile:
-        css = ' '.join(ifile.read().split())
+    with open('odpydoc.css', 'r') as ifile:
+        css = ifile.read()
     with open('one-dark-pygments.css', 'r') as ifile:
-        css += ' '.join(ifile.read().split())
-    css = css.replace(' } ','}').replace('; ',';').replace(' { ', '{').replace(': ',':')
+        css += ifile.read()
 
     html = ("""
     <html lang="en">
@@ -364,7 +420,7 @@ def doc_module(mod, **kw):
         <body onresize="arrange()" onload="arrange()">
 
             <!--Back to Top Button-->
-            <a id="back-to-top" href="#">%s</a>
+            <a id="back-to-top" href="#">back to top</a>
 
             <!--Navigation Sidebar-->
             %s
@@ -393,17 +449,18 @@ def doc_module(mod, **kw):
     """ %
     (mod_name,
     css,
-    'back to top',
-    nav_html(mod_name, submodules, functions, classes, others),
+    _nav_html(mod_name, submodules, functions, classes, others),
     mod_name,
     mod_docstring,
-    functions_to_html(functions),
-    classes_to_html(classes),
-    others_to_html(others),
+    _functions_to_html(functions),
+    _classes_to_html(classes),
+    _others_to_html(others),
     js))
 
     #delete the module
     del(mod)
 
-    with open(mod_name + '.html', 'w') as ofile:
+    fn = mod_name + '.html'
+    with open(fn, 'w') as ofile:
         ofile.write(html)
+    print('documentation written to: %s' % fn)

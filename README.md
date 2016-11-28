@@ -13,6 +13,7 @@ Simply pass the name of a module or package to `odpydoc.doc()` as a string, and 
 * A simple example of the recursive documentation can be found [here](http://mbaum1122.github.io/emf/), in the documentation for another one of my projects. The submodule names in the contents link to the documentation for those submodules.
 
 ##### dependencies
+* `os`
 * `inspect`
 * `textwrap`
 * `pygments`

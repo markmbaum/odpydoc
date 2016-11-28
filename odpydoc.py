@@ -2,9 +2,19 @@
 
 import inspect
 import textwrap
+from os import path
 from pygments import highlight as _highlight
 from pygments.lexers import PythonLexer as _PythonLexer
 from pygments.formatters import HtmlFormatter as _HtmlFormatter
+
+_fn_base = path.dirname(__file__)
+with open(path.join(_fn_base, 'odpydoc.js'), 'r') as _ifile:
+    _js = _ifile.read()
+with open(path.join(_fn_base, 'odpydoc.css'), 'r') as _ifile:
+    _css = _ifile.read()
+with open(path.join(_fn_base, 'one-dark-pygments.css'), 'r') as _ifile:
+    _css += _ifile.read()
+del(_ifile)
 
 _python_lexer = _PythonLexer()
 _html_formatter = _HtmlFormatter()
@@ -342,7 +352,7 @@ def _others_to_html(others):
                     k,
                     k,
                     tab, t,
-                    tab, repr(others[k]),
+                    tab, textwrap.fill(repr(others[k]), width=81),
                     comments)
         html += '</div>'
         return(html)
@@ -400,15 +410,6 @@ def doc(mod, **kw):
         mod_docstring = ('<div class="section">%s</div>' %
                 mod_docstring.replace('class="docstr"', 'id="mod-docstr"'))
 
-    #get js script
-    with open('odpydoc.js', 'r') as ifile:
-        js = ifile.read()
-    #get css styling
-    with open('odpydoc.css', 'r') as ifile:
-        css = ifile.read()
-    with open('one-dark-pygments.css', 'r') as ifile:
-        css += ifile.read()
-
     html = ("""
     <html lang="en">
         <head>
@@ -448,14 +449,14 @@ def doc(mod, **kw):
     </html>
     """ %
     (mod_name,
-    css,
+    _css,
     _nav_html(mod_name, submodules, functions, classes, others),
     mod_name,
     mod_docstring,
     _functions_to_html(functions),
     _classes_to_html(classes),
     _others_to_html(others),
-    js))
+    _js))
 
     #delete the module
     del(mod)

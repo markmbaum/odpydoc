@@ -298,3 +298,8 @@ body {
     margin: 0;
     padding: 0.5cm 0 0.5 1cm;
 }
+
+.other pre {
+    margin: 0;
+    padding: 0 0 0 1.5cm;
+}

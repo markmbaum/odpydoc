@@ -304,6 +304,11 @@
     margin: 0;
     padding: 0.5cm 0 0.5 1cm;
 }
+
+.other pre {
+    margin: 0;
+    padding: 0 0 0 1.5cm;
+}
 .highlight .k  {color: #C678DD;}
 
 .highlight .nf {color: #61AFEF;}
@@ -405,15 +410,6 @@
         <span class="n">mod_docstring</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;section&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&#39;</span> <span class="o">%</span>
                 <span class="n">mod_docstring</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;class=&quot;docstr&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;id=&quot;mod-docstr&quot;&#39;</span><span class="p">))</span>
 
-    <span class="c1">#get js script</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;odpydoc.js&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
-        <span class="n">js</span> <span class="o">=</span> <span class="n">ifile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="c1">#get css styling</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;odpydoc.css&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
-        <span class="n">css</span> <span class="o">=</span> <span class="n">ifile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;one-dark-pygments.css&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
-        <span class="n">css</span> <span class="o">+=</span> <span class="n">ifile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
     <span class="n">html</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    &lt;html lang=&quot;en&quot;&gt;</span>
 <span class="s2">        &lt;head&gt;</span>
@@ -455,14 +451,14 @@
 <span class="s2">    &lt;/html&gt;</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="o">%</span>
     <span class="p">(</span><span class="n">mod_name</span><span class="p">,</span>
-    <span class="n">css</span><span class="p">,</span>
+    <span class="n">_css</span><span class="p">,</span>
     <span class="n">_nav_html</span><span class="p">(</span><span class="n">mod_name</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">functions</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">others</span><span class="p">),</span>
     <span class="n">mod_name</span><span class="p">,</span>
     <span class="n">mod_docstring</span><span class="p">,</span>
     <span class="n">_functions_to_html</span><span class="p">(</span><span class="n">functions</span><span class="p">),</span>
     <span class="n">_classes_to_html</span><span class="p">(</span><span class="n">classes</span><span class="p">),</span>
     <span class="n">_others_to_html</span><span class="p">(</span><span class="n">others</span><span class="p">),</span>
-    <span class="n">js</span><span class="p">))</span>
+    <span class="n">_js</span><span class="p">))</span>
 
     <span class="c1">#delete the module</span>
     <span class="k">del</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>

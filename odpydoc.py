@@ -69,7 +69,7 @@ def _nav_html(mod_name, submodules, functions, classes, others):
                 <ul class="subnav-ul">""" % (k, k)
             for m in sorted(d[k].keys()):
                 if(k == 'submodules'):
-                    href = '%s.html' % m
+                    href = '%s.%s.html' % (mod_name, m)
                 else:
                     href = '#%s' % m
                 if(k == 'classes'):
@@ -362,7 +362,11 @@ def _others_to_html(others):
 def doc(mod, **kw):
     """This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.
     args:
-        mod - str, module name or module object"""
+        mod - str, module name or module object
+    kw:
+        script - path to file containing javascript script to include in the
+                 head of the resulting html file. The scripts must have
+                 <script> tags around them in the file."""
 
     #import the module if a string is passed in
     if(type(mod) is str):
@@ -384,7 +388,7 @@ def doc(mod, **kw):
     if('__all__' in v):
         submods_in_all = v['__all__']
         for submod_name in submods_in_all:
-            doc(v[submod_name])
+            doc(v[submod_name], **kw)
     else:
         submods_in_all = []
     #remove private keys
@@ -410,6 +414,12 @@ def doc(mod, **kw):
         mod_docstring = ('<div class="section">%s</div>' %
                 mod_docstring.replace('class="docstr"', 'id="mod-docstr"'))
 
+    #get script, if any
+    _script = ''
+    if('script' in kw):
+        with open(kw['script'], 'r') as ifile:
+            _script = ifile.read()
+
     html = ("""
     <html lang="en">
         <head>
@@ -417,6 +427,7 @@ def doc(mod, **kw):
             <title>%s</title>
             <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Open+Sans" rel="stylesheet">
             <style>%s</style>
+            %s
     	</head>
         <body onresize="arrange()" onload="arrange()">
 
@@ -450,6 +461,7 @@ def doc(mod, **kw):
     """ %
     (mod_name,
     _css,
+    _script,
     _nav_html(mod_name, submodules, functions, classes, others),
     mod_name,
     mod_docstring,

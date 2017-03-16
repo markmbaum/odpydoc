@@ -146,7 +146,6 @@
 #nav a:hover {
     font-weight: 700;
     color: #ABB2BF;
-    /*background-color: #282C34;*/
 }
 
 #main {
@@ -329,9 +328,55 @@
 .highlight .mo {color: #D19A66;}
 
 .highlight .bp {color: #D19A66;}
+.highlight .bp2 {color: #E06C75;}
+
 
 .highlight .c1 {color: #5C6370;}
 </style>
+            
+            <!--Control the width and height of the #main element-->
+            <script type="text/javascript">
+function arrange(){
+    var nav_wrapper = document.getElementById('nav-wrapper');
+    var nav = document.getElementById('nav');
+    var main = document.getElementById('main');
+    var body = document.body;
+
+    var w_nav = nav.offsetWidth + 1;
+    var m = w_nav.toString() + 'px';
+    var w = (body.offsetWidth - w_nav).toString() + 'px';
+
+    main.setAttribute('style', 'margin-left: ' + m);
+    main.style.marginLeft = m;
+
+    main.setAttribute('style', 'width: ' + w);
+    main.style.width = w;
+
+    console.log('arrange')
+
+};
+
+function toggleSource(obj){
+    var parent = obj.parentElement;
+    var children = parent.children;
+
+    var header = children[0];
+    var code = children[1];
+    var codeDisplay = code.style.display;
+
+    if(codeDisplay == 'block'){
+        code.style.display = 'none';
+        header.innerHTML = 'show source';
+        parent.style.borderColor = '#383838'
+    }else{
+        code.style.display = 'block';
+        header.innerHTML = 'hide source';
+        parent.style.borderColor = '#C678DD'
+    };
+
+    arrange();
+};
+</script>
     	</head>
         <body onresize="arrange()" onload="arrange()">
 
@@ -344,11 +389,11 @@
                     <h2>contents</h2>
                     <ul id="nav-ul">
             <li class="nav-li"><a href="#functions">functions</a>
-                <ul class="subnav-ul"><li class="subnav-li"><a href="#html">html</a></li><li class="subnav-li"><a href="#import_module">import_module</a></li><li class="subnav-li"><a href="#text">text</a></li></ul>
+                <ul class="subnav-ul"><li class="subnav-li"><a href="#html">html</a></li></li><li class="subnav-li"><a href="#import_module">import_module</a></li></li><li class="subnav-li"><a href="#text">text</a></li></li></ul>
             <li class="nav-li"><a href="#classes">classes</a>
                 <ul class="subnav-ul"><li class="subnav-li"><a href="#Class">Class</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#Class-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Class-refname>refname</a></li><li class="subsubsubnav-li"><a href=#Class-source>source</a></li></ul></li><li class="subsubnav-li"><a href=#Class-methods>methods</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Class-class_variables>class_variables</a></li><li class="subsubsubnav-li"><a href=#Class-functions>functions</a></li><li class="subsubsubnav-li"><a href=#Class-instance_variables>instance_variables</a></li><li class="subsubsubnav-li"><a href=#Class-methods>methods</a></li></ul></li></ul></li><li class="subnav-li"><a href="#Doc">Doc</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#Doc-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Doc-refname>refname</a></li><li class="subsubsubnav-li"><a href=#Doc-source>source</a></li></ul></li><li class="subsubnav-li"><a href=#Doc-methods>methods</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Doc-is_empty>is_empty</a></li></ul></li></ul></li><li class="subnav-li"><a href="#External">External</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#External-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#External-refname>refname</a></li><li class="subsubsubnav-li"><a href=#External-source>source</a></li></ul></li></ul></li><li class="subnav-li"><a href="#Function">Function</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#Function-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Function-refname>refname</a></li><li class="subsubsubnav-li"><a href=#Function-source>source</a></li></ul></li><li class="subsubnav-li"><a href=#Function-methods>methods</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Function-params>params</a></li><li class="subsubsubnav-li"><a href=#Function-spec>spec</a></li></ul></li></ul></li><li class="subnav-li"><a href="#Module">Module</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#Module-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Module-refname>refname</a></li><li class="subsubsubnav-li"><a href=#Module-source>source</a></li></ul></li><li class="subsubnav-li"><a href=#Module-methods>methods</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Module-classes>classes</a></li><li class="subsubsubnav-li"><a href=#Module-descendents>descendents</a></li><li class="subsubsubnav-li"><a href=#Module-find_class>find_class</a></li><li class="subsubsubnav-li"><a href=#Module-find_ident>find_ident</a></li><li class="subsubsubnav-li"><a href=#Module-functions>functions</a></li><li class="subsubsubnav-li"><a href=#Module-html>html</a></li><li class="subsubsubnav-li"><a href=#Module-is_package>is_package</a></li><li class="subsubsubnav-li"><a href=#Module-is_public>is_public</a></li><li class="subsubsubnav-li"><a href=#Module-is_submodule>is_submodule</a></li><li class="subsubsubnav-li"><a href=#Module-mro>mro</a></li><li class="subsubsubnav-li"><a href=#Module-submodules>submodules</a></li><li class="subsubsubnav-li"><a href=#Module-text>text</a></li><li class="subsubsubnav-li"><a href=#Module-variables>variables</a></li></ul></li></ul></li><li class="subnav-li"><a href="#TemplateLookup">TemplateLookup</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#TemplateLookup-methods>methods</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#TemplateLookup-adjust_uri>adjust_uri</a></li><li class="subsubsubnav-li"><a href=#TemplateLookup-filename_to_uri>filename_to_uri</a></li><li class="subsubsubnav-li"><a href=#TemplateLookup-get_template>get_template</a></li><li class="subsubsubnav-li"><a href=#TemplateLookup-put_string>put_string</a></li><li class="subsubsubnav-li"><a href=#TemplateLookup-put_template>put_template</a></li></ul></li></ul></li><li class="subnav-li"><a href="#TopLevelLookupException">TopLevelLookupException</a></li><li class="subnav-li"><a href="#Variable">Variable</a><ul class="subsubnav-ul"><li class="subsubnav-li"><a href=#Variable-properties>properties</a><ul class="subsubsubnav-ul"><li class="subsubsubnav-li"><a href=#Variable-refname>refname</a></li><li class="subsubsubnav-li"><a href=#Variable-source>source</a></li></ul></li></ul></li></ul>
             <li class="nav-li"><a href="#others">others</a>
-                <ul class="subnav-ul"><li class="subnav-li"><a href="#absolute_import">absolute_import</a></li><li class="subnav-li"><a href="#division">division</a></li><li class="subnav-li"><a href="#html_module_suffix">html_module_suffix</a></li><li class="subnav-li"><a href="#html_package_name">html_package_name</a></li><li class="subnav-li"><a href="#import_path">import_path</a></li><li class="subnav-li"><a href="#print_function">print_function</a></li><li class="subnav-li"><a href="#tpl_lookup">tpl_lookup</a></li></ul></ul></div></div>
+                <ul class="subnav-ul"><li class="subnav-li"><a href="#absolute_import">absolute_import</a></li></li><li class="subnav-li"><a href="#division">division</a></li></li><li class="subnav-li"><a href="#html_module_suffix">html_module_suffix</a></li></li><li class="subnav-li"><a href="#html_package_name">html_package_name</a></li></li><li class="subnav-li"><a href="#import_path">import_path</a></li></li><li class="subnav-li"><a href="#print_function">print_function</a></li></li><li class="subnav-li"><a href="#tpl_lookup">tpl_lookup</a></li></li></ul></ul></div></div>
 
             <div id="main">
                 <h1>pdoc</h1>
@@ -468,39 +513,39 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">class_obj</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">class_obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Same as `pdoc.Doc.__init__`, except `class_obj` must be a</span>
 <span class="sd">        Python class object. The docstring is gathered automatically.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Class</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">class_obj</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Class</span><span class="p">,</span> <span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">class_obj</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">class_obj</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">class_obj</span>
         <span class="sd">&quot;&quot;&quot;The class Python object.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;A mapping from identifier name to a `pdoc.Doc` objects.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A special version of `pdoc.Class.doc` that contains</span>
 <span class="sd">        documentation for instance variables found in the `__init__`</span>
 <span class="sd">        method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">public</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public_objs</span><span class="p">()</span>
+        <span class="n">public</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">__public_objs</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># First try and find docstrings for class variables.</span>
             <span class="c1"># Then move on to finding docstrings for instance variables.</span>
             <span class="c1"># This must be optional, since not all modules have source</span>
             <span class="c1"># code available.</span>
-            <span class="n">cls_ast</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">))</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">cls_ast</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cls_ast</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">cls</span><span class="p">))</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">cls_ast</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="n">cls_ast</span><span class="o">.</span><span class="n">body</span> <span class="k">if</span> <span class="s1">&#39;__init__&#39;</span> <span class="ow">in</span> <span class="n">public</span> <span class="k">else</span> <span class="p">[]):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;__init__&#39;</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
-                                                    <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                                                    <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
                     <span class="k">break</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
@@ -508,29 +553,29 @@
         <span class="c1"># Convert the public Python objects to documentation objects.</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">public</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># Skip any identifiers that already have doco.</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
                 <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">:</span>
                 <span class="c1"># Let instance members override class members.</span>
                 <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">__func__</span><span class="p">,</span>
-                                          <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">__func__</span><span class="p">,</span>
+                                          <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span>
-                                          <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span>
+                                          <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
                 <span class="n">docstring</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span>
-                                               <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span>
+                                               <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">)</span>
             <span class="k">elif</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isbuiltin</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> \
                     <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isroutine</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;__slots__&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
-                                                   <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;__slots__&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                                                   <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp2">self</span><span class="p">)</span>
 </pre></div>
 
                     </div>
@@ -538,13 +583,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">class_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">class_variables</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented class variables in the class, sorted</span>
 <span class="sd">        alphabetically as a list of `pdoc.Variable`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -552,15 +597,15 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">functions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">functions</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented static functions as `pdoc.Function`</span>
 <span class="sd">        objects in the class, sorted alphabetically.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Function</span><span class="p">)</span>
                        <span class="ow">and</span> <span class="ow">not</span> <span class="n">o</span><span class="o">.</span><span class="n">method</span>
-                       <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+                       <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -568,15 +613,15 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">instance_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">instance_variables</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all instance variables in the class, sorted</span>
 <span class="sd">        alphabetically as a list of `pdoc.Variable`. Instance variables</span>
 <span class="sd">        are attributes of `self` defined in a class&#39;s `__init__`</span>
 <span class="sd">        method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_init</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc_init</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -584,7 +629,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">methods</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented methods as `pdoc.Function` objects in</span>
 <span class="sd">        the class, sorted alphabetically with `__init__` always coming</span>
@@ -594,8 +639,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Function</span><span class="p">)</span>
                        <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="n">method</span>
-                       <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+                       <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -603,24 +648,24 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes a documentation object, where `name` is the public</span>
 <span class="sd">        identifier name, `module` is a `pdoc.Module` object, and</span>
 <span class="sd">        `docstring` is a string containing the docstring for `name`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The module documentation object that this object was defined</span>
 <span class="sd">        in.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The identifier name for this object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">docstring</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">cleandoc</span><span class="p">(</span><span class="n">docstring</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">docstring</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">cleandoc</span><span class="p">(</span><span class="n">docstring</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The docstring for this object. It has already been cleaned</span>
 <span class="sd">        by `inspect.cleandoc`.</span>
@@ -632,11 +677,11 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the docstring for this object is empty.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">docstring</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
                     </div>
@@ -644,12 +689,12 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes an external identifier with `name`, where `name`</span>
 <span class="sd">        should be a fully qualified name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">External</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">External</span><span class="p">,</span> <span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 
                     </div>
@@ -657,7 +702,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">func_obj</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">func_obj</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Same as `pdoc.Doc.__init__`, except `func_obj` must be a</span>
 <span class="sd">        Python function object. The docstring is gathered automatically.</span>
@@ -668,18 +713,18 @@
 <span class="sd">        `method` should be `True` when the function is a method. In</span>
 <span class="sd">        all other cases, it should be `False`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Function</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">func_obj</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Function</span><span class="p">,</span> <span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">func_obj</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func_obj</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func_obj</span>
         <span class="sd">&quot;&quot;&quot;The Python function object.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The `pdoc.Class` documentation object if this is a method. If</span>
 <span class="sd">        not, this is None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Whether this function is a method or not.</span>
 
@@ -692,7 +737,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list where each element is a nicely formatted</span>
 <span class="sd">        parameter of this function. This includes argument lists,</span>
@@ -705,7 +750,7 @@
                 <span class="k">return</span> <span class="s1">&#39;(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">fmt_param</span><span class="p">,</span> <span class="n">el</span><span class="p">)))</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">getspec</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">inspect</span><span class="p">,</span> <span class="s1">&#39;getfullargspec&#39;</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">)</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">getspec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">getspec</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="c1"># I guess this is for C builtin functions?</span>
             <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;...&#39;</span><span class="p">]</span>
@@ -733,13 +778,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">spec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">spec</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a nicely formatted spec of the function&#39;s parameter</span>
 <span class="sd">        list as a string. This includes argument lists, keyword</span>
 <span class="sd">        arguments and default values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">params</span><span class="p">())</span>
 </pre></div>
 
                     </div>
@@ -747,7 +792,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docfilter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allsubmodules</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docfilter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allsubmodules</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a `Module` documentation object given the actual</span>
 <span class="sd">        module Python object.</span>
@@ -764,16 +809,16 @@
 <span class="sd">        documentation, regardless of whether `__all__` contains it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__pdoc_module_name&#39;</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Module</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Module</span><span class="p">,</span> <span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filtering</span> <span class="o">=</span> <span class="n">docfilter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_docfilter</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">docfilter</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">docfilter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_allsubmodules</span> <span class="o">=</span> <span class="n">allsubmodules</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_filtering</span> <span class="o">=</span> <span class="n">docfilter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_docfilter</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="bp">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">docfilter</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">docfilter</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_allsubmodules</span> <span class="o">=</span> <span class="n">allsubmodules</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;A mapping from identifier name to a documentation object.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The same as `pdoc.Module.doc`, but maps fully qualified</span>
 <span class="sd">        identifier names to documentation objects.</span>
@@ -781,91 +826,91 @@
 
         <span class="n">vardocs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">))</span>
-            <span class="n">vardocs</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">))</span>
+            <span class="n">vardocs</span> <span class="o">=</span> <span class="n">_var_docstrings</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="bp2">self</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_declared_variables</span> <span class="o">=</span> <span class="n">vardocs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_declared_variables</span> <span class="o">=</span> <span class="n">vardocs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
-        <span class="n">public</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public_objs</span><span class="p">()</span>
+        <span class="n">public</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">__public_objs</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">public</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># Skip any identifiers that already have doco.</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
                 <span class="k">continue</span>
 
             <span class="c1"># Functions and some weird builtins?, plus methods, classes,</span>
             <span class="c1"># modules and module level variables.</span>
             <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">or</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isbuiltin</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
                 <span class="c1"># Only document modules that are submodules or are forcefully</span>
                 <span class="c1"># exported by __all__.</span>
-                <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="ow">and</span> \
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__is_exported</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
-                         <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_submodule</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span><span class="p">)):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__new_submodule</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span> <span class="ow">and</span> \
+                        <span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">__is_exported</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                         <span class="ow">or</span> <span class="bp2">self</span><span class="o">.</span><span class="n">is_submodule</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span><span class="p">)):</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">__new_submodule</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">vardocs</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">vardocs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">vardocs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Catch all for variables.</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp2">self</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
         <span class="c1"># Now scan the directory if this is a package for all modules.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">)</span> \
-                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">):</span>
             <span class="n">pkgdir</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pkgdir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span>
-                             <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">__file__</span><span class="p">)])</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_package</span><span class="p">():</span>
+            <span class="n">pkgdir</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span>
+                             <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">__file__</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="bp2">self</span><span class="o">.</span><span class="n">is_package</span><span class="p">():</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">iter_modules</span><span class="p">(</span><span class="n">pkgdir</span><span class="p">):</span>
                 <span class="c1"># Ignore if this module was already doc&#39;d.</span>
-                <span class="k">if</span> <span class="n">root</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">root</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">:</span>
                     <span class="k">continue</span>
 
                 <span class="c1"># Ignore if it isn&#39;t exported, unless we&#39;ve specifically</span>
                 <span class="c1"># requested to document all submodules.</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allsubmodules</span> \
-                        <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_exported</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_allsubmodules</span> \
+                        <span class="ow">and</span> <span class="ow">not</span> <span class="bp2">self</span><span class="o">.</span><span class="n">__is_exported</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">):</span>
                     <span class="k">continue</span>
 
-                <span class="n">fullname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+                <span class="n">fullname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
                 <span class="n">m</span> <span class="o">=</span> <span class="n">_safe_import</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__new_submodule</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">__new_submodule</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
 
         <span class="c1"># Now see if we can grab inheritance relationships between classes.</span>
-        <span class="k">for</span> <span class="n">docobj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">docobj</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docobj</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
                 <span class="n">docobj</span><span class="o">.</span><span class="n">_fill_inheritance</span><span class="p">()</span>
 
         <span class="c1"># Build the reference name dictionary.</span>
-        <span class="k">for</span> <span class="n">basename</span><span class="p">,</span> <span class="n">docobj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">docobj</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">docobj</span>
+        <span class="k">for</span> <span class="n">basename</span><span class="p">,</span> <span class="n">docobj</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">docobj</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">docobj</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docobj</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">docobj</span><span class="o">.</span><span class="n">class_variables</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
                 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">docobj</span><span class="o">.</span><span class="n">instance_variables</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
                 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">docobj</span><span class="o">.</span><span class="n">methods</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
                 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">docobj</span><span class="o">.</span><span class="n">functions</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+                    <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">refname</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
 
         <span class="c1"># Finally look for more docstrings in the __pdoc__ override.</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">docstring</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__pdoc__&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">refname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refname</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">docstring</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__pdoc__&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">refname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">refname</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">docstring</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">refname</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">refname</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
                 <span class="k">continue</span>
 
-            <span class="n">dobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_ident</span><span class="p">(</span><span class="n">refname</span><span class="p">)</span>
+            <span class="n">dobj</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">find_ident</span><span class="p">(</span><span class="n">refname</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dobj</span><span class="p">,</span> <span class="n">External</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="n">dobj</span><span class="o">.</span><span class="n">docstring</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">cleandoc</span><span class="p">(</span><span class="n">docstring</span><span class="p">)</span>
@@ -876,13 +921,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">classes</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented module level classes in the module</span>
 <span class="sd">        sorted alphabetically as a list of `pdoc.Class`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Class</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Class</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -890,7 +935,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">descendents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">descendents</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a descendent list of documentation objects for `cls`,</span>
 <span class="sd">        which must be a documentation object.</span>
@@ -904,7 +949,7 @@
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="n">downs</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cls</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">downs</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="bp2">self</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">downs</span><span class="p">))</span>
 </pre></div>
 
                     </div>
@@ -912,15 +957,15 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_class</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a Python `cls` object, try to find it in this module</span>
 <span class="sd">        or in any of the exported identifiers of the submodules.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">doc_cls</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">doc_cls</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">classes</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">cls</span> <span class="ow">is</span> <span class="n">doc_cls</span><span class="o">.</span><span class="n">cls</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">doc_cls</span>
-        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">():</span>
             <span class="n">doc_cls</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">doc_cls</span><span class="p">,</span> <span class="n">External</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">doc_cls</span>
@@ -932,7 +977,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_ident</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_ident</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Searches this module and **all** of its sub-modules for an</span>
 <span class="sd">        identifier with name `name` in its list of exported</span>
@@ -946,9 +991,9 @@
 <span class="sd">        returned. If one cannot be found, then an instance of</span>
 <span class="sd">        `External` is returned populated with the given identifier.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">():</span>
             <span class="n">o</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">find_ident</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">External</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">o</span>
@@ -960,13 +1005,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">functions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">functions</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented module level functions in the module</span>
 <span class="sd">        sorted alphabetically as a list of `pdoc.Function`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Function</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Function</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -974,7 +1019,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">external_links</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">link_prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">html</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">external_links</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">link_prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
              <span class="n">source</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the documentation for this module as</span>
@@ -993,7 +1038,7 @@
 <span class="sd">        `kwargs` is passed to the `mako` render function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">_get_tpl</span><span class="p">(</span><span class="s1">&#39;/html.mako&#39;</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp2">self</span><span class="p">,</span>
                      <span class="n">external_links</span><span class="o">=</span><span class="n">external_links</span><span class="p">,</span>
                      <span class="n">link_prefix</span><span class="o">=</span><span class="n">link_prefix</span><span class="p">,</span>
                      <span class="n">show_source_code</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
@@ -1006,14 +1051,14 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_package</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns `True` if this module is a package.</span>
 
 <span class="sd">        Works by checking if `__package__` is not `None` and whether it</span>
 <span class="sd">        has the `__path__` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">)</span>
 </pre></div>
 
                     </div>
@@ -1021,7 +1066,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_public</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_public</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns `True` if and only if an identifier with name `name` is</span>
 <span class="sd">        part of the public interface of this module. While the names</span>
@@ -1031,7 +1076,7 @@
 <span class="sd">        `name` should be a fully qualified name, e.g.,</span>
 <span class="sd">        &lt;code&gt;pdoc.Module.is_public&lt;/code&gt;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">refdoc</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">refdoc</span>
 </pre></div>
 
                     </div>
@@ -1039,13 +1084,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_submodule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">is_submodule</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns `True` if and only if `name` starts with the full</span>
 <span class="sd">        import path of `self` and has length at least one greater than</span>
 <span class="sd">        `len(self.name)`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp2">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 
                     </div>
@@ -1053,7 +1098,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">mro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">mro</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a method resolution list of documentation objects</span>
 <span class="sd">        for `cls`, which must be a documentation object.</span>
@@ -1063,7 +1108,7 @@
 <span class="sd">        classes either in this module or in one of its sub-modules.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ups</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">cls</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">ups</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="bp2">self</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">ups</span><span class="p">))</span>
 </pre></div>
 
                     </div>
@@ -1071,13 +1116,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">submodules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">submodules</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented sub-modules in the module sorted</span>
 <span class="sd">        alphabetically as a list of `pdoc.Module`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Module</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Module</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -1085,12 +1130,12 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the documentation for this module as plain text.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">_get_tpl</span><span class="p">(</span><span class="s1">&#39;/text.mako&#39;</span><span class="p">)</span>
-        <span class="n">text</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n\n</span><span class="s1">+&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">text</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n\n</span><span class="s1">+&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">text</span>
 </pre></div>
 
@@ -1099,13 +1144,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="bp2">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all documented module level variables in the module</span>
 <span class="sd">        sorted alphabetically as a list of `pdoc.Variable`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_docfilter</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
                     </div>
@@ -1113,7 +1158,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span>
                  <span class="n">directories</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">module_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">filesystem_checks</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -1144,13 +1189,13 @@
                  <span class="n">preprocessor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">lexer_cls</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">directories</span> <span class="o">=</span> <span class="p">[</span><span class="n">posixpath</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">directories</span> <span class="o">=</span> <span class="p">[</span><span class="n">posixpath</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span>
                             <span class="n">util</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">directories</span><span class="p">,</span> <span class="p">())</span>
                             <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">module_directory</span> <span class="o">=</span> <span class="n">module_directory</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modulename_callable</span> <span class="o">=</span> <span class="n">modulename_callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_checks</span> <span class="o">=</span> <span class="n">filesystem_checks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection_size</span> <span class="o">=</span> <span class="n">collection_size</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">module_directory</span> <span class="o">=</span> <span class="n">module_directory</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">modulename_callable</span> <span class="o">=</span> <span class="n">modulename_callable</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">filesystem_checks</span> <span class="o">=</span> <span class="n">filesystem_checks</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">collection_size</span> <span class="o">=</span> <span class="n">collection_size</span>
 
         <span class="k">if</span> <span class="n">cache_args</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">cache_args</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1162,7 +1207,7 @@
         <span class="k">if</span> <span class="n">cache_type</span><span class="p">:</span>
             <span class="n">cache_args</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="n">cache_type</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_args</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">template_args</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;format_exceptions&#39;</span><span class="p">:</span> <span class="n">format_exceptions</span><span class="p">,</span>
             <span class="s1">&#39;error_handler&#39;</span><span class="p">:</span> <span class="n">error_handler</span><span class="p">,</span>
             <span class="s1">&#39;disable_unicode&#39;</span><span class="p">:</span> <span class="n">disable_unicode</span><span class="p">,</span>
@@ -1186,12 +1231,12 @@
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="n">collection_size</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">collection_size</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">collection_size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mutex</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">collection_size</span><span class="p">)</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">collection_size</span><span class="p">)</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_mutex</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 </pre></div>
 
                     </div>
@@ -1199,21 +1244,21 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">adjust_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">relativeto</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">adjust_uri</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">relativeto</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adjust the given ``uri`` based on the given relative URI.&quot;&quot;&quot;</span>
 
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">relativeto</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">uri</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">relativeto</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                     <span class="n">posixpath</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">relativeto</span><span class="p">),</span> <span class="n">uri</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">uri</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">uri</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">uri</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">uri</span>
         <span class="k">return</span> <span class="n">v</span>
 </pre></div>
 
@@ -1222,15 +1267,15 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">filename_to_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">filename_to_uri</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert the given ``filename`` to a URI relative to</span>
 <span class="sd">           this :class:`.TemplateCollection`.&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relativeize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_relativeize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp2">self</span><span class="o">.</span><span class="n">_uri_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
             <span class="k">return</span> <span class="n">value</span>
 </pre></div>
 
@@ -1239,7 +1284,7 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a :class:`.Template` object corresponding to the given</span>
 <span class="sd">        ``uri``.</span>
 
@@ -1249,19 +1294,19 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_checks</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp2">self</span><span class="o">.</span><span class="n">filesystem_checks</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span>
+                <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">u</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;^\/+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">uri</span><span class="p">)</span>
-            <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directories</span><span class="p">:</span>
+            <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="bp2">self</span><span class="o">.</span><span class="n">directories</span><span class="p">:</span>
                 <span class="c1"># make sure the path seperators are posix - os.altsep is empty</span>
                 <span class="c1"># on POSIX and cannot be used.</span>
                 <span class="nb">dir</span> <span class="o">=</span> <span class="nb">dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
                 <span class="n">srcfile</span> <span class="o">=</span> <span class="n">posixpath</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">posixpath</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">u</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">srcfile</span><span class="p">):</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span><span class="n">srcfile</span><span class="p">,</span> <span class="n">uri</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="bp2">self</span><span class="o">.</span><span class="n">_load</span><span class="p">(</span><span class="n">srcfile</span><span class="p">,</span> <span class="n">uri</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">TopLevelLookupException</span><span class="p">(</span>
                     <span class="s2">&quot;Cant locate template for uri </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">uri</span><span class="p">)</span>
@@ -1272,17 +1317,17 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">put_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">put_string</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Place a new :class:`.Template` object into this</span>
 <span class="sd">        :class:`.TemplateLookup`, based on the given string of</span>
 <span class="sd">        ``text``.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span>
             <span class="n">text</span><span class="p">,</span>
-            <span class="n">lookup</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">lookup</span><span class="o">=</span><span class="bp2">self</span><span class="p">,</span>
             <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span>
-            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">template_args</span><span class="p">)</span>
+            <span class="o">**</span><span class="bp2">self</span><span class="o">.</span><span class="n">template_args</span><span class="p">)</span>
 </pre></div>
 
                     </div>
@@ -1290,13 +1335,13 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">put_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">template</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">put_template</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">template</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Place a new :class:`.Template` object into this</span>
 <span class="sd">        :class:`.TemplateLookup`, based on the given</span>
 <span class="sd">        :class:`.Template` object.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">_collection</span><span class="p">[</span><span class="n">uri</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span>
 </pre></div>
 
                     </div>
@@ -1304,15 +1349,15 @@
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                        <div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp2">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Same as `pdoc.Doc.__init__`, except `cls` should be provided</span>
 <span class="sd">        as a `pdoc.Class` object when this is a class or instance</span>
 <span class="sd">        variable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Variable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Variable</span><span class="p">,</span> <span class="bp2">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">docstring</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
+        <span class="bp2">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The `podc.Class` object if this is a class or instance</span>
 <span class="sd">        variable. If not, this is None.</span>
@@ -1351,7 +1396,7 @@
                 <div class="other" id="import_path">
                     <span class="other-name">import_path</span><br>
                     &ensp;&ensp;&ensp;&ensp;<span class="other-type">type:</span>list<br>
-                    &ensp;&ensp;&ensp;&ensp;<span class="other-value">value:</span><pre>['P:\\MBaum\\Programming\\Python\\python_code\\odpydoc',
+                    &ensp;&ensp;&ensp;&ensp;<span class="other-value">value:</span><pre>['', 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\Scripts',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-
 packages\\flexx-0.3.1-py3.5.egg',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\python27.zip',
@@ -1360,6 +1405,7 @@ packages\\flexx-0.3.1-py3.5.egg',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\plat-win',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\lib-tk',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2',
+'C:\\Users\\mbaum\\AppData\\Roaming\\Python\\Python27\\site-packages',
 'P:\\MBaum\\Programming\\Python\\python_code',
 'P:\\MBaum\\Programming\\Python\\python_code\\ENGS91_code',
 'P:\\MBaum\\Programming\\Python\\python_code\\emf',
@@ -1374,12 +1420,12 @@ packages\\sphinx-1.3.5-py2.7.egg',
 packages\\setuptools-20.7.0-py2.7.egg',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-packages',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-
-packages\\cryptography-1.0.2-py2.7-win32.egg',
-'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-
 packages\\win32', 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib
 \\site-packages\\win32\\lib',
 'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-
-packages\\Pythonwin']</pre>
+packages\\Pythonwin',
+'C:\\Users\\mbaum\\AppData\\Local\\Continuum\\Anaconda2\\lib\\site-
+packages\\IPython\\extensions', 'C:\\Users\\mbaum\\.ipython']</pre>
                     
                 </div>
                 <div class="other" id="print_function">
@@ -1391,58 +1437,14 @@ packages\\Pythonwin']</pre>
                 <div class="other" id="tpl_lookup">
                     <span class="other-name">tpl_lookup</span><br>
                     &ensp;&ensp;&ensp;&ensp;<span class="other-type">type:</span>mako.lookup.TemplateLookup<br>
-                    &ensp;&ensp;&ensp;&ensp;<span class="other-value">value:</span><pre><mako.lookup.TemplateLookup object at 0x0310D6B0></pre>
+                    &ensp;&ensp;&ensp;&ensp;<span class="other-value">value:</span><pre><mako.lookup.TemplateLookup object at 0x03EB4770></pre>
                     
                 </div></div>
             </div>
 
         </body>
 
-        <!--Control the width and height of the #main element-->
-        <script type="text/javascript">
-function arrange(){
-    var nav_wrapper = document.getElementById('nav-wrapper');
-    var nav = document.getElementById('nav');
-    var main = document.getElementById('main');
-    var body = document.body;
 
-    var w_nav = nav.offsetWidth + 1;
-    var m = w_nav.toString() + 'px';
-    var w = (body.offsetWidth - w_nav).toString() + 'px';
-
-    main.setAttribute('style', 'margin-left: ' + m);
-    main.style.marginLeft = m;
-
-    main.setAttribute('style', 'width: ' + w);
-    main.style.width = w;
-
-    console.log('arrange')
-
-};
-
-arrange();
-
-function toggleSource(obj){
-    var parent = obj.parentElement;
-    var children = parent.children;
-
-    var header = children[0];
-    var code = children[1];
-    var codeDisplay = code.style.display;
-
-    if(codeDisplay == 'block'){
-        code.style.display = 'none';
-        header.innerHTML = 'show source';
-        parent.style.borderColor = '#383838'
-    }else{
-        code.style.display = 'block';
-        header.innerHTML = 'hide source';
-        parent.style.borderColor = '#C678DD'
-    };
-
-    arrange();
-};
-</script>
 
     </html>
     

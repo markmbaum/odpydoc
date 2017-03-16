@@ -19,8 +19,6 @@ function arrange(){
 
 };
 
-arrange();
-
 function toggleSource(obj){
     var parent = obj.parentElement;
     var children = parent.children;

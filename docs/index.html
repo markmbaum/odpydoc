@@ -146,7 +146,6 @@
 #nav a:hover {
     font-weight: 700;
     color: #ABB2BF;
-    /*background-color: #282C34;*/
 }
 
 #main {
@@ -329,9 +328,55 @@
 .highlight .mo {color: #D19A66;}
 
 .highlight .bp {color: #D19A66;}
+.highlight .bp2 {color: #E06C75;}
+
 
 .highlight .c1 {color: #5C6370;}
 </style>
+            
+            <!--Control the width and height of the #main element-->
+            <script type="text/javascript">
+function arrange(){
+    var nav_wrapper = document.getElementById('nav-wrapper');
+    var nav = document.getElementById('nav');
+    var main = document.getElementById('main');
+    var body = document.body;
+
+    var w_nav = nav.offsetWidth + 1;
+    var m = w_nav.toString() + 'px';
+    var w = (body.offsetWidth - w_nav).toString() + 'px';
+
+    main.setAttribute('style', 'margin-left: ' + m);
+    main.style.marginLeft = m;
+
+    main.setAttribute('style', 'width: ' + w);
+    main.style.width = w;
+
+    console.log('arrange')
+
+};
+
+function toggleSource(obj){
+    var parent = obj.parentElement;
+    var children = parent.children;
+
+    var header = children[0];
+    var code = children[1];
+    var codeDisplay = code.style.display;
+
+    if(codeDisplay == 'block'){
+        code.style.display = 'none';
+        header.innerHTML = 'show source';
+        parent.style.borderColor = '#383838'
+    }else{
+        code.style.display = 'block';
+        header.innerHTML = 'hide source';
+        parent.style.borderColor = '#C678DD'
+    };
+
+    arrange();
+};
+</script>
     	</head>
         <body onresize="arrange()" onload="arrange()">
 
@@ -344,25 +389,29 @@
                     <h2>contents</h2>
                     <ul id="nav-ul">
             <li class="nav-li"><a href="#functions">functions</a>
-                <ul class="subnav-ul"><li class="subnav-li"><a href="#doc">doc</a></li></ul></ul></div></div>
+                <ul class="subnav-ul"><li class="subnav-li"><a href="#doc">doc</a></li></li></ul></ul></div></div>
 
             <div id="main">
                 <h1>odpydoc</h1>
                 <!--module docstring section-->
-                <div class="section"><p id="mod-docstr">This is a module for creating HTML documentation of other Python packages/modules. The doc_module function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme.</p></div>
+                <div class="section"><p id="mod-docstr">This is a module for creating HTML documentation of other Python packages/modules. The doc function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme.</p></div>
 
                 <!--functions section-->
-                <div class="section" id="functions"><h2>functions</h2><div class="function" id="doc"><p class="function-str"><span class="function-name">doc</span>(<span class="function-arg">mod</span>, **<span class="function-arg">kw</span>)</p><p class="docstr">This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.<br>&ensp;&ensp;&ensp;&ensp;args:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;mod - str, module name or module object</p>
+                <div class="section" id="functions"><h2>functions</h2><div class="function" id="doc"><p class="function-str"><span class="function-name">doc</span>(<span class="function-arg">mod</span>, **<span class="function-arg">kw</span>)</p><p class="docstr">This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.<br>&ensp;&ensp;&ensp;&ensp;args:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;mod - str, module name or module object<br>&ensp;&ensp;&ensp;&ensp;kw:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;script - path to file containing javascript script to include in the<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; head of the resulting html file. The scripts must have<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; script tags around them in the file.</p>
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
                         <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This is the main function of odpydoc. It documents a module/package by</span>
-<span class="sd">    importing it and inspecting the objects it contains, creating HTML strings</span>
-<span class="sd">    for them and spitting out a single HTML file. Subpackages in the target</span>
-<span class="sd">    package&#39;s __all__ variable are recursively documented.</span>
-<span class="sd">    args:</span>
-<span class="sd">        mod - str, module name or module object&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This is the main function of odpydoc. It documents a module/package by
+    importing it and inspecting the objects it contains, creating HTML strings
+    for them and spitting out a single HTML file. Subpackages in the target
+    package&#39;s __all__ variable are recursively documented.
+    args:</span>
+<span class="sd">        mod - str, module name or module object</span>
+<span class="sd">    kw:</span>
+<span class="sd">        script - path to file containing javascript script to include in the</span>
+<span class="sd">                 head of the resulting html file. The scripts must have</span>
+<span class="sd">                 script tags around them in the file.&quot;&quot;&quot;</span>
 
     <span class="c1">#import the module if a string is passed in</span>
     <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">):</span>
@@ -384,7 +433,7 @@
     <span class="k">if</span><span class="p">(</span><span class="s1">&#39;__all__&#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">):</span>
         <span class="n">submods_in_all</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;__all__&#39;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">submod_name</span> <span class="ow">in</span> <span class="n">submods_in_all</span><span class="p">:</span>
-            <span class="n">doc</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">submod_name</span><span class="p">])</span>
+            <span class="n">doc</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">submod_name</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">submods_in_all</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1">#remove private keys</span>
@@ -410,15 +459,24 @@
         <span class="n">mod_docstring</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;section&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&#39;</span> <span class="o">%</span>
                 <span class="n">mod_docstring</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;class=&quot;docstr&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;id=&quot;mod-docstr&quot;&#39;</span><span class="p">))</span>
 
+    <span class="c1">#get script, if any</span>
+    <span class="n">_script</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span><span class="p">(</span><span class="s1">&#39;script&#39;</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">kw</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
+            <span class="n">_script</span> <span class="o">=</span> <span class="n">ifile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
     <span class="n">html</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    &lt;html lang=&quot;en&quot;&gt;</span>
 <span class="s2">        &lt;head&gt;</span>
 <span class="s2">            &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</span>
 <span class="s2">            &lt;title&gt;</span><span class="si">%s</span><span class="s2">&lt;/title&gt;</span>
-<span class="s2">            &lt;link</span>
-<span class="s2">            href=&quot;https://fonts.googleapis.com/css?family=Anonymous+Pro|Open+Sans</span>
-<span class="s2">            &quot; rel=&quot;stylesheet&quot;&gt;</span>
-<span class="s2">            &lt;style&gt;</span><span class="si">%s</span><span class="s2">&lt;/style&gt;</span>
+<span class="s2">            &lt;link
+            href=&quot;https://fonts.googleapis.com/css?family=Anonymous+Pro|Open+San
+            s&quot; rel=&quot;stylesheet&quot;&gt;
+            &lt;style&gt;</span><span class="si">%s</span><span class="s2">&lt;/style&gt;</span>
+<span class="s2">            </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">            &lt;!--Control the width and height of the #main element--&gt;</span>
+<span class="s2">            &lt;script type=&quot;text/javascript&quot;&gt;</span><span class="si">%s</span><span class="s2">&lt;/script&gt;</span>
 <span class="s2">        &lt;/head&gt;</span>
 <span class="s2">        &lt;body onresize=&quot;arrange()&quot; onload=&quot;arrange()&quot;&gt;</span>
 
@@ -445,20 +503,20 @@
 
 <span class="s2">        &lt;/body&gt;</span>
 
-<span class="s2">        &lt;!--Control the width and height of the #main element--&gt;</span>
-<span class="s2">        &lt;script type=&quot;text/javascript&quot;&gt;</span><span class="si">%s</span><span class="s2">&lt;/script&gt;</span>
+
 
 <span class="s2">    &lt;/html&gt;</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="o">%</span>
     <span class="p">(</span><span class="n">mod_name</span><span class="p">,</span>
     <span class="n">_css</span><span class="p">,</span>
+    <span class="n">_script</span><span class="p">,</span>
+    <span class="n">_js</span><span class="p">,</span>
     <span class="n">_nav_html</span><span class="p">(</span><span class="n">mod_name</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">functions</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">others</span><span class="p">),</span>
     <span class="n">mod_name</span><span class="p">,</span>
     <span class="n">mod_docstring</span><span class="p">,</span>
     <span class="n">_functions_to_html</span><span class="p">(</span><span class="n">functions</span><span class="p">),</span>
     <span class="n">_classes_to_html</span><span class="p">(</span><span class="n">classes</span><span class="p">),</span>
-    <span class="n">_others_to_html</span><span class="p">(</span><span class="n">others</span><span class="p">),</span>
-    <span class="n">_js</span><span class="p">))</span>
+    <span class="n">_others_to_html</span><span class="p">(</span><span class="n">others</span><span class="p">)))</span>
 
     <span class="c1">#delete the module</span>
     <span class="k">del</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
@@ -481,51 +539,7 @@
 
         </body>
 
-        <!--Control the width and height of the #main element-->
-        <script type="text/javascript">
-function arrange(){
-    var nav_wrapper = document.getElementById('nav-wrapper');
-    var nav = document.getElementById('nav');
-    var main = document.getElementById('main');
-    var body = document.body;
 
-    var w_nav = nav.offsetWidth + 1;
-    var m = w_nav.toString() + 'px';
-    var w = (body.offsetWidth - w_nav).toString() + 'px';
-
-    main.setAttribute('style', 'margin-left: ' + m);
-    main.style.marginLeft = m;
-
-    main.setAttribute('style', 'width: ' + w);
-    main.style.width = w;
-
-    console.log('arrange')
-
-};
-
-arrange();
-
-function toggleSource(obj){
-    var parent = obj.parentElement;
-    var children = parent.children;
-
-    var header = children[0];
-    var code = children[1];
-    var codeDisplay = code.style.display;
-
-    if(codeDisplay == 'block'){
-        code.style.display = 'none';
-        header.innerHTML = 'show source';
-        parent.style.borderColor = '#383838'
-    }else{
-        code.style.display = 'block';
-        header.innerHTML = 'hide source';
-        parent.style.borderColor = '#C678DD'
-    };
-
-    arrange();
-};
-</script>
 
     </html>
     

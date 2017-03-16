@@ -1,4 +1,4 @@
-"""This is a module for creating HTML documentation of other Python packages/modules. The doc_module function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme."""
+"""This is a module for creating HTML documentation of other Python packages/modules. The doc function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme."""
 
 import inspect
 import textwrap
@@ -17,7 +17,7 @@ with open(path.join(_fn_base, 'one-dark-pygments.css'), 'r') as _ifile:
 del(_ifile)
 
 _python_lexer = _PythonLexer()
-_html_formatter = _HtmlFormatter()
+_html_formatter = _HtmlFormatter(nowrap=False)
 
 def _is_number(s):
     """Check if an element can be converted to a float, returning `True`
@@ -106,7 +106,7 @@ def _nav_html(mod_name, submodules, functions, classes, others):
 
                     html += '</li>'
                 else:
-                    html += '<li class="subnav-li"><a href="%s">%s</a></li>' % (href, m)
+                    html += '<li class="subnav-li"><a href="%s">%s</a></li></li>' % (href, m)
             html += '</ul>'
     html += '</ul></div></div>'
     return(html)
@@ -127,6 +127,8 @@ def _get_docstr(obj):
     else:
         return('')
 
+_new_line_sub = '_NEWLINESUBSTITUTION___newlinesubstitution_'
+
 def _get_source(obj):
     """Pull the source string of an object and format it for HTML
     args:
@@ -139,17 +141,20 @@ def _get_source(obj):
     except(IOError):
         return(None)
     else:
+        #highlight the argstring
         #break any long running lines (those softwrapped by an editor)
         for i in range(len(lines)):
             if(len(lines[i]) > 100):
                 l = lines[i]
                 indent = l.replace(l.lstrip(), '')
-                lines[i] = textwrap.fill(lines[i], width=81,
-                        subsequent_indent=indent)
-                lines[i] += '\n'
+                lines[i] = textwrap.fill(lines[i], width=80,
+                        subsequent_indent=indent
+                        ).replace('\n', _new_line_sub)
+                lines[i] += _new_line_sub
         #return the source in a <pre>
         source = ''.join(lines).replace('\t', '    ')
         source = _highlight(source, _python_lexer, _html_formatter)
+        source = source.replace(_new_line_sub, '\n')
         source = """
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
@@ -157,6 +162,9 @@ def _get_source(obj):
                         %s
                     </div>
                 </div>""" % source
+        source = source.replace(
+            '<span class="bp">self</span>',
+            '<span class="bp2">self</span>')
         return(source)
 
 _function_arg = lambda s: '<span class="function-arg">' + str(s) + '</span>'
@@ -366,7 +374,7 @@ def doc(mod, **kw):
     kw:
         script - path to file containing javascript script to include in the
                  head of the resulting html file. The scripts must have
-                 <script> tags around them in the file."""
+                 script tags around them in the file."""
 
     #import the module if a string is passed in
     if(type(mod) is str):
@@ -428,6 +436,8 @@ def doc(mod, **kw):
             <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|Open+Sans" rel="stylesheet">
             <style>%s</style>
             %s
+            <!--Control the width and height of the #main element-->
+            <script type="text/javascript">%s</script>
     	</head>
         <body onresize="arrange()" onload="arrange()">
 
@@ -454,21 +464,20 @@ def doc(mod, **kw):
 
         </body>
 
-        <!--Control the width and height of the #main element-->
-        <script type="text/javascript">%s</script>
+
 
     </html>
     """ %
     (mod_name,
     _css,
     _script,
+    _js,
     _nav_html(mod_name, submodules, functions, classes, others),
     mod_name,
     mod_docstring,
     _functions_to_html(functions),
     _classes_to_html(classes),
-    _others_to_html(others),
-    _js))
+    _others_to_html(others)))
 
     #delete the module
     del(mod)

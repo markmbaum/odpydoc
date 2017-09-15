@@ -2,6 +2,7 @@
 
 import inspect
 import textwrap
+import importlib
 from os import path
 from pygments import highlight as _highlight
 from pygments.lexers import PythonLexer as _PythonLexer
@@ -379,12 +380,14 @@ def doc(mod, **kw):
     #import the module if a string is passed in
     if(type(mod) is str):
         try:
-            exec('import %s as mod' % mod)
+            mod = importlib.import_module(mod)
+            print('imported')
         except(ImportError, SyntaxError) as e:
             print(e)
             print('Cannot import "%s"' % mod)
             return(None)
     #store the module name
+    print(repr(mod))
     mod_name = mod.__name__
 
     #get the module's dictionary/namespace/whatever

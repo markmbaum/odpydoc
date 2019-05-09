@@ -395,15 +395,21 @@ def doc(mod, **kw):
         v = vars(mod)
     except(TypeError):
         return(None)
-    #check for submods in __all__
+    #check __all__
     if('__all__' in v):
-        submods_in_all = v['__all__']
+        #store a list of submodules
+        submods_in_all = [k for k in v if (type(v[k]) is type(mod))]
+        #recursively document submodules
         for submod_name in submods_in_all:
-            doc(v[submod_name], **kw)
+            if type(v[submod_name]) is not type(mod):
+                doc(v[submod_name], **kw)
+        #remove variables that are not public
+        print(v['__all__'])
+        v = {k:v[k] for k in v if (k in v['__all__'])}
     else:
         submods_in_all = []
     #remove private keys
-    v = _get_public_vars(mod)
+    v = {k:v[k] for k in v if (k[0] != '_')}
     #separate the objects in v based on their types
     submodules, functions, classes, others = dict(), dict(), dict(), dict()
     for k in v:

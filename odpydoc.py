@@ -3,22 +3,24 @@
 import inspect
 import textwrap
 import importlib
-from os import path
-from pygments import highlight as _highlight
-from pygments.lexers import PythonLexer as _PythonLexer
-from pygments.formatters import HtmlFormatter as _HtmlFormatter
+from os.path import join, dirname
+from pygments import highlight as highlight
+from pygments.lexers import PythonLexer as PythonLexer
+from pygments.formatters import HtmlFormatter as HtmlFormatter
 
-_fn_base = path.dirname(__file__)
-with open(path.join(_fn_base, 'odpydoc.js'), 'r') as _ifile:
+__all__ = ['doc']
+
+_fn_base = dirname(__file__)
+with open(join(_fn_base, 'odpydoc.js'), 'r') as _ifile:
     _js = _ifile.read()
-with open(path.join(_fn_base, 'odpydoc.css'), 'r') as _ifile:
+with open(join(_fn_base, 'odpydoc.css'), 'r') as _ifile:
     _css = _ifile.read()
-with open(path.join(_fn_base, 'one-dark-pygments.css'), 'r') as _ifile:
+with open(join(_fn_base, 'one-dark-pygments.css'), 'r') as _ifile:
     _css += _ifile.read()
 del(_ifile)
 
-_python_lexer = _PythonLexer()
-_html_formatter = _HtmlFormatter(nowrap=False)
+_python_lexer = PythonLexer()
+_html_formatter = HtmlFormatter(nowrap=False)
 
 def _is_number(s):
     """Check if an element can be converted to a float, returning `True`
@@ -154,7 +156,7 @@ def _get_source(obj):
                 lines[i] += _new_line_sub
         #return the source in a <pre>
         source = ''.join(lines).replace('\t', '    ')
-        source = _highlight(source, _python_lexer, _html_formatter)
+        source = highlight(source, _python_lexer, _html_formatter)
         source = source.replace(_new_line_sub, '\n')
         source = """
                 <div class="source">
@@ -368,10 +370,15 @@ def _others_to_html(others):
     else:
         return('')
 
-def doc(mod, **kw):
-    """This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.
+def doc(mod, outdir='.', **kw):
+    """This is the main function of odpydoc. It documents a module/package
+    by importing it and inspecting the objects it contains, creating HTML
+    strings for them and spitting out a single HTML file. Subpackages in
+    the target package's __all__ variable are recursively documented.
     args:
         mod - str, module name or module object
+    optional args:
+        outdir - directory to write output html files into
     kw:
         script - path to file containing javascript script to include in the
                  head of the resulting html file. The scripts must have
@@ -381,13 +388,15 @@ def doc(mod, **kw):
     if(type(mod) is str):
         try:
             mod = importlib.import_module(mod)
+            mod = importlib.reload(mod)
             print('imported')
-        except(ImportError, SyntaxError) as e:
+        except (ImportError, SyntaxError) as e:
             print(e)
-            print('Cannot import "%s"' % mod)
-            return(None)
+            raise ImportError('Cannot import "%s"' % mod)
+    else:
+        importlib.reload(mod)
+
     #store the module name
-    print(repr(mod))
     mod_name = mod.__name__
 
     #get the module's dictionary/namespace/whatever
@@ -398,13 +407,12 @@ def doc(mod, **kw):
     #check __all__
     if('__all__' in v):
         #store a list of submodules
-        submods_in_all = [k for k in v if (type(v[k]) is type(mod))]
+        submods_in_all = [k for k in v['__all__'] if (type(v[k]) is type(mod))]
         #recursively document submodules
         for submod_name in submods_in_all:
-            if type(v[submod_name]) is not type(mod):
+            if type(v[submod_name]) is type(mod):
                 doc(v[submod_name], **kw)
         #remove variables that are not public
-        print(v['__all__'])
         v = {k:v[k] for k in v if (k in v['__all__'])}
     else:
         submods_in_all = []
@@ -476,22 +484,23 @@ def doc(mod, **kw):
 
 
     </html>
-    """ %
-    (mod_name,
-    _css,
-    _script,
-    _js,
-    _nav_html(mod_name, submodules, functions, classes, others),
-    mod_name,
-    mod_docstring,
-    _functions_to_html(functions),
-    _classes_to_html(classes),
-    _others_to_html(others)))
+    """ % (
+        mod_name,
+        _css,
+        _script,
+        _js,
+        _nav_html(mod_name, submodules, functions, classes, others),
+        mod_name,
+        mod_docstring,
+        _functions_to_html(functions),
+        _classes_to_html(classes),
+        _others_to_html(others))
+    )
 
     #delete the module
     del(mod)
 
-    fn = mod_name + '.html'
+    fn = join(outdir, mod_name + '.html')
     with open(fn, 'w') as ofile:
         ofile.write(html)
     print('documentation written to: %s' % fn)

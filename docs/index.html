@@ -397,17 +397,19 @@ function toggleSource(obj){
                 <div class="section"><p id="mod-docstr">This is a module for creating HTML documentation of other Python packages/modules. The doc function accepts the name of a package or module as a string, imports the package, and creates a single HTML file documenting the public objects in the package by inspecting the objects in the package. Subpackages in the target package's __all__ variable are recursively documented. The HTML files are styled after Atom's One Dark theme.</p></div>
 
                 <!--functions section-->
-                <div class="section" id="functions"><h2>functions</h2><div class="function" id="doc"><p class="function-str"><span class="function-name">doc</span>(<span class="function-arg">mod</span>, **<span class="function-arg">kw</span>)</p><p class="docstr">This is the main function of odpydoc. It documents a module/package by importing it and inspecting the objects it contains, creating HTML strings for them and spitting out a single HTML file. Subpackages in the target package's __all__ variable are recursively documented.<br>&ensp;&ensp;&ensp;&ensp;args:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;mod - str, module name or module object<br>&ensp;&ensp;&ensp;&ensp;kw:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;script - path to file containing javascript script to include in the<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; head of the resulting html file. The scripts must have<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; script tags around them in the file.</p>
+                <div class="section" id="functions"><h2>functions</h2><div class="function" id="doc"><p class="function-str"><span class="function-name">doc</span>(<span class="function-arg">mod</span>, <span class="function-arg">outdir</span>=<span class="default-str">'.'</span>, **<span class="function-arg">kw</span>)</p><p class="docstr">This is the main function of odpydoc. It documents a module/package<br>&ensp;&ensp;&ensp;&ensp;by importing it and inspecting the objects it contains, creating HTML<br>&ensp;&ensp;&ensp;&ensp;strings for them and spitting out a single HTML file. Subpackages in<br>&ensp;&ensp;&ensp;&ensp;the target package's __all__ variable are recursively documented.<br>&ensp;&ensp;&ensp;&ensp;args:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;mod - str, module name or module object<br>&ensp;&ensp;&ensp;&ensp;optional args:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;outdir - directory to write output html files into<br>&ensp;&ensp;&ensp;&ensp;kw:<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;script - path to file containing javascript script to include in the<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; head of the resulting html file. The scripts must have<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; script tags around them in the file.</p>
                 <div class="source">
                     <h4 onclick="toggleSource(this)">show source</h4>
                     <div class="code">
-                        <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This is the main function of odpydoc. It documents a module/package by
-    importing it and inspecting the objects it contains, creating HTML strings
-    for them and spitting out a single HTML file. Subpackages in the target
-    package&#39;s __all__ variable are recursively documented.
-    args:</span>
+                        <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the main function of odpydoc. It documents a module/package</span>
+<span class="sd">    by importing it and inspecting the objects it contains, creating HTML</span>
+<span class="sd">    strings for them and spitting out a single HTML file. Subpackages in</span>
+<span class="sd">    the target package&#39;s __all__ variable are recursively documented.</span>
+<span class="sd">    args:</span>
 <span class="sd">        mod - str, module name or module object</span>
+<span class="sd">    optional args:</span>
+<span class="sd">        outdir - directory to write output html files into</span>
 <span class="sd">    kw:</span>
 <span class="sd">        script - path to file containing javascript script to include in the</span>
 <span class="sd">                 head of the resulting html file. The scripts must have</span>
@@ -416,28 +418,37 @@ function toggleSource(obj){
     <span class="c1">#import the module if a string is passed in</span>
     <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">exec</span><span class="p">(</span><span class="s1">&#39;import </span><span class="si">%s</span><span class="s1"> as mod&#39;</span> <span class="o">%</span> <span class="n">mod</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">SyntaxError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;imported&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">SyntaxError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Cannot import &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">mod</span><span class="p">)</span>
-            <span class="k">return</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;Cannot import &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">mod</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+
     <span class="c1">#store the module name</span>
-    <span class="n">mod_name</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">__name__</span>
+    <span class="n">mod_name</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="vm">__name__</span>
 
     <span class="c1">#get the module&#39;s dictionary/namespace/whatever</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">v</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
     <span class="k">except</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
         <span class="k">return</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-    <span class="c1">#check for submods in __all__</span>
+    <span class="c1">#check __all__</span>
     <span class="k">if</span><span class="p">(</span><span class="s1">&#39;__all__&#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">):</span>
-        <span class="n">submods_in_all</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;__all__&#39;</span><span class="p">]</span>
+        <span class="c1">#store a list of submodules</span>
+        <span class="n">submods_in_all</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;__all__&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">))]</span>
+        <span class="c1">#recursively document submodules</span>
         <span class="k">for</span> <span class="n">submod_name</span> <span class="ow">in</span> <span class="n">submods_in_all</span><span class="p">:</span>
-            <span class="n">doc</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">submod_name</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">submod_name</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">):</span>
+                <span class="n">doc</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">submod_name</span><span class="p">],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="c1">#remove variables that are not public</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">v</span> <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;__all__&#39;</span><span class="p">])}</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">submods_in_all</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1">#remove private keys</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">_get_public_vars</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">v</span> <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;_&#39;</span><span class="p">)}</span>
     <span class="c1">#separate the objects in v based on their types</span>
     <span class="n">submodules</span><span class="p">,</span> <span class="n">functions</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">others</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
@@ -506,22 +517,23 @@ function toggleSource(obj){
 
 
 <span class="s2">    &lt;/html&gt;</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="o">%</span>
-    <span class="p">(</span><span class="n">mod_name</span><span class="p">,</span>
-    <span class="n">_css</span><span class="p">,</span>
-    <span class="n">_script</span><span class="p">,</span>
-    <span class="n">_js</span><span class="p">,</span>
-    <span class="n">_nav_html</span><span class="p">(</span><span class="n">mod_name</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">functions</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">others</span><span class="p">),</span>
-    <span class="n">mod_name</span><span class="p">,</span>
-    <span class="n">mod_docstring</span><span class="p">,</span>
-    <span class="n">_functions_to_html</span><span class="p">(</span><span class="n">functions</span><span class="p">),</span>
-    <span class="n">_classes_to_html</span><span class="p">(</span><span class="n">classes</span><span class="p">),</span>
-    <span class="n">_others_to_html</span><span class="p">(</span><span class="n">others</span><span class="p">)))</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">mod_name</span><span class="p">,</span>
+        <span class="n">_css</span><span class="p">,</span>
+        <span class="n">_script</span><span class="p">,</span>
+        <span class="n">_js</span><span class="p">,</span>
+        <span class="n">_nav_html</span><span class="p">(</span><span class="n">mod_name</span><span class="p">,</span> <span class="n">submodules</span><span class="p">,</span> <span class="n">functions</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">others</span><span class="p">),</span>
+        <span class="n">mod_name</span><span class="p">,</span>
+        <span class="n">mod_docstring</span><span class="p">,</span>
+        <span class="n">_functions_to_html</span><span class="p">(</span><span class="n">functions</span><span class="p">),</span>
+        <span class="n">_classes_to_html</span><span class="p">(</span><span class="n">classes</span><span class="p">),</span>
+        <span class="n">_others_to_html</span><span class="p">(</span><span class="n">others</span><span class="p">))</span>
+    <span class="p">)</span>
 
     <span class="c1">#delete the module</span>
     <span class="k">del</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
 
-    <span class="n">fn</span> <span class="o">=</span> <span class="n">mod_name</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">mod_name</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
         <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;documentation written to: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fn</span><span class="p">)</span>

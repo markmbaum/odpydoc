@@ -4,6 +4,7 @@ function arrange(){
     var nav = document.getElementById('nav');
     var main = document.getElementById('main');
     var body = document.body;
+    var back = document.getElementById('up-module')
 
     var w_nav = nav.offsetWidth + 1;
     var m = w_nav.toString() + 'px';
@@ -16,7 +17,6 @@ function arrange(){
     main.style.width = w;
 
     console.log('arrange')
-
 };
 
 function toggleSource(obj){

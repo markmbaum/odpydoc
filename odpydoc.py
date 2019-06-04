@@ -83,6 +83,12 @@ def _nav_html(mod_name, submodules, functions, classes, others):
                     for var_name in v:
                         if(var_name[0] != '_'):
                             if(inspect.isdatadescriptor(v[var_name])):
+
+
+
+
+
+
                                 properties[var_name] = v[var_name]
                             if(inspect.ismethod(v[var_name]) or (inspect.isfunction(v[var_name]))):
                                 methods[var_name] = v[var_name]
@@ -113,6 +119,16 @@ def _nav_html(mod_name, submodules, functions, classes, others):
             html += '</ul>'
     html += '</ul></div></div>'
     return(html)
+
+def _back_html(back):
+
+    if back is None:
+        return('')
+    else:
+        return("""
+        <!--Up Module Button-->
+        <a id="up-module" href="%s">back module</a>
+        """ % back)
 
 def _get_docstr(obj):
     """Pull the docstring of an object and format it for HTML
@@ -370,7 +386,7 @@ def _others_to_html(others):
     else:
         return('')
 
-def doc(mod, outdir='.', **kw):
+def doc(mod, outdir='.', index=True, back=None, script=None):
     """This is the main function of odpydoc. It documents a module/package
     by importing it and inspecting the objects it contains, creating HTML
     strings for them and spitting out a single HTML file. Subpackages in
@@ -379,7 +395,8 @@ def doc(mod, outdir='.', **kw):
         mod - str, module name or module object
     optional args:
         outdir - directory to write output html files into
-    kw:
+        index - bool, whether to name the top module index.html
+        back - link for going back/up a module
         script - path to file containing javascript script to include in the
                  head of the resulting html file. The scripts must have
                  script tags around them in the file."""
@@ -399,11 +416,18 @@ def doc(mod, outdir='.', **kw):
     #store the module name
     mod_name = mod.__name__
 
+    #get the output file name
+    if index:
+        fnout = join(outdir, 'index.html')
+    else:
+        fnout = join(outdir, mod_name + '.html')
+
     #get the module's dictionary/namespace/whatever
     try:
         v = vars(mod)
     except(TypeError):
         return(None)
+
     #check __all__
     if('__all__' in v):
         #store a list of submodules
@@ -411,7 +435,7 @@ def doc(mod, outdir='.', **kw):
         #recursively document submodules
         for submod_name in submods_in_all:
             if type(v[submod_name]) is type(mod):
-                doc(v[submod_name], **kw)
+                doc(v[submod_name], outdir=outdir, index=False, back=fnout)
         #remove variables that are not public
         v = {k:v[k] for k in v if (k in v['__all__'])}
     else:
@@ -432,7 +456,6 @@ def doc(mod, outdir='.', **kw):
         else:
             others[k] = v[k]
 
-    #GENERATE HTML
     #get the module docstring, if any
     mod_docstring = _get_docstr(mod)
     if(mod_docstring):
@@ -441,8 +464,8 @@ def doc(mod, outdir='.', **kw):
 
     #get script, if any
     _script = ''
-    if('script' in kw):
-        with open(kw['script'], 'r') as ifile:
+    if script is not None:
+        with open(script, 'r') as ifile:
             _script = ifile.read()
 
     html = ("""
@@ -459,7 +482,10 @@ def doc(mod, outdir='.', **kw):
         <body onresize="arrange()" onload="arrange()">
 
             <!--Back to Top Button-->
-            <a id="back-to-top" href="#">back to top</a>
+            <a id="go-to-top" href="#">go to top</a>
+
+            <!--Up Module Button-->
+            %s
 
             <!--Navigation Sidebar-->
             %s
@@ -480,15 +506,13 @@ def doc(mod, outdir='.', **kw):
             </div>
 
         </body>
-
-
-
     </html>
     """ % (
         mod_name,
         _css,
         _script,
         _js,
+        _back_html(back),
         _nav_html(mod_name, submodules, functions, classes, others),
         mod_name,
         mod_docstring,
@@ -499,8 +523,7 @@ def doc(mod, outdir='.', **kw):
 
     #delete the module
     del(mod)
-
-    fn = join(outdir, mod_name + '.html')
-    with open(fn, 'w') as ofile:
+    #write the html
+    with open(fnout, 'w') as ofile:
         ofile.write(html)
-    print('documentation written to: %s' % fn)
+    print('documentation written to: %s' % fnout)

@@ -3,7 +3,7 @@
 import inspect
 import textwrap
 import importlib
-from os.path import join, dirname
+from os.path import join, dirname, basename
 from pygments import highlight as highlight
 from pygments.lexers import PythonLexer as PythonLexer
 from pygments.formatters import HtmlFormatter as HtmlFormatter
@@ -127,7 +127,7 @@ def _back_html(back):
     else:
         return("""
         <!--Up Module Button-->
-        <a id="up-module" href="%s">back module</a>
+        <a id="up-module" href="%s">back</a>
         """ % back)
 
 def _get_docstr(obj):
@@ -196,7 +196,7 @@ def _get_argstr(function):
     returns:
         html - an HTML string"""
     #get the argspec named tuple
-    argspec = list(inspect.getargspec(function))
+    argspec = list(inspect.getfullargspec(function))
     #remove 'self'
     if('self' in argspec[0]):
         argspec[0].pop(argspec[0].index('self'))
@@ -435,7 +435,7 @@ def doc(mod, outdir='.', index=True, back=None, script=None):
         #recursively document submodules
         for submod_name in submods_in_all:
             if type(v[submod_name]) is type(mod):
-                doc(v[submod_name], outdir=outdir, index=False, back=fnout)
+                doc(v[submod_name], outdir=outdir, index=False, back=basename(fnout))
         #remove variables that are not public
         v = {k:v[k] for k in v if (k in v['__all__'])}
     else:

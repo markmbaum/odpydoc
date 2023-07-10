@@ -1,16 +1,30 @@
 # odpydoc
 
-This repo contains a Python module for creating HTML documentation of small to medium sized Python packages/modules. The `doc` function is the only public member of `odpydoc`. It accepts the name of a package or module as a string, imports the package, and generates HTML file(s) documenting the public objects in the package. Subpackages in the target package's `__all__` variable are recursively documented and linked to from their parent. The HTML files are styled after [Atom's](https://atom.io/) One Dark theme. `odpydoc` is not meant for large and complex packages like numpy. It collects all the target's docstrings and presents them in an easily navigable format with the option to view member's source code.
+This repo contains a Python module for quickly creating HTML documentation for Python packages/modules. It produces html files indexing members of the target module/package, organizing their docstrings, and including source code snippets. It recursively documents submodules in the target's `__all__` variable.
 
-### usage
-Simply pass the name of a module or package to `odpydoc.doc()` as a string, and it will drop HTML files in the desired directory.
+It has only one public function: `doc(mod, outdir=".", index=True, script=None)`.
+
+* `mod` - the target module/package as a string
+* `outdir` - output directory for the
+* `index` - whether to name the top module index.html or name if after the package
+* `script` - the path to a javascript file to include in the \<head\>
+
+It's not meant for big complex packages. I made it to quickly document my own little packages as needed.
+
+### intstalling
+
+1. clone
+2. run `pip install .` in the odpydoc directory
+
+### using
+
+either
+* `import odpydoc` and use the `doc` function
+* run `python -m odpydoc <module>` for your
 
 ### examples
-* The automatically generated documentation for this module, `odpydoc`, is [here](http://markmbaum.github.io/odpydoc). There is only one public object in the module, so the docs are slim.
+* The automatically generated documentation for odpydoc itself is [here](http://markmbaum.github.io/odpydoc). There's only one public object in the module, so the docs are slim.
 
-* As another example, [this](http://markmbaum.github.io/odpydoc/pdoc.html) is odpydoc's documentation for a Python package quite similar to `odpydoc`, called [`pdoc`](https://github.com/BurntSushi/pdoc). The `pdoc` package is more complete and flexible than `odpydoc`, but there are some differences. `odpydoc` generates HTML with a different style and will recursively document subpackages found in the `__all__` variable of a target package, automatically linking to the subpackage documentation from the parent's documentation.
+* For another example, [this](http://markmbaum.github.io/odpydoc/pdoc.html) is odpydoc's documentation for (an old version of) a Python package similar to odpydoc called [pdoc](https://github.com/BurntSushi/pdoc).
 
-* A simple example of the recursive documentation can be found [here](http://markmbaum.github.io/emf/), in the documentation for another one of my projects. The submodule names in the contents link to the documentation for those submodules.
-
-##### dependencies
-`os`, `inspect`, `importlib`, `textwrap`, `pygments`
+* A simple example of the recursive documentation can be found [here](http://markmbaum.github.io/emf/), the documentation for another one of my old projects. The submodule names in the contents link to the documentation for those submodules.

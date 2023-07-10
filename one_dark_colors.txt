@@ -1,4 +1,4 @@
-Atom One Dark Colors in Hex
+approximate One Dark colors
 
 config      - #282C34 - dark gray
 dark config - #20242C - approximate
